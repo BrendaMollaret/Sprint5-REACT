@@ -1,30 +1,31 @@
-
 import { Container, Row } from "react-bootstrap";
 import ProductCard from "../ProductCard/ProductCard";
-
+import { useEffect, useState } from "react";
+import { ArticuloManufacturadoService } from "../../services/ArticuloManufacturadoService";
+import { ArticuloManufacturado } from "../../types/ArticuloManufacturado";
 
 const ProductList = () => {
-  const productos = [
-    {
-      nombre: "Producto 1",
-      imagenUrl: "/images/home/bebida.png",
-      precio: 20.99,
-      tieneStock: true,
-    },
-    {
-      nombre: "Producto 2",
-      imagenUrl: "/images/home/hamburguesa.jpg",
-      precio: 15.49,
-      tieneStock: false,
-    },
-    // Puedes agregar más productos según sea necesario
-  ];
+  const [articulosManufacturados, setArticulosManufacturados] = useState<ArticuloManufacturado[]>([]);
+
+  useEffect(() => {
+    const fetchArticulosManufacturados = async () => {
+      try {
+        const data = await ArticuloManufacturadoService.getAllArticuloManufacturado();
+        setArticulosManufacturados(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching ArticulosManufacturados:", error);
+      }
+    };
+
+    fetchArticulosManufacturados();
+  }, []);
 
   return (
     <Container>
       <Row>
-        {productos.map((producto, index) => (
-          <ProductCard key={index} {...producto} />
+        {articulosManufacturados.map((articuloManufacturado) => (
+          <ProductCard key={articuloManufacturado.id} articuloManufacturado={articuloManufacturado} />
         ))}
       </Row>
     </Container>

@@ -1,8 +1,8 @@
 export interface UnidadMedida {
-    nombreUnidadMedida: string,
-    abrevitaturaUnidadMedida: string,
-    fechaAltaUnidadMedida: Date,
-    fechaBajaUnidadMedida: Date,
-    fechaModificacionUnidadMedida: Date,
-
-}
+    id: number;
+    nombreUnidadMedida: string;
+    abrevitaturaUnidadMedida: string;
+    fechaAltaUnidadMedida: string;
+    fechaBajaUnidadMedida: string | null;
+    fechaModificacionUnidadMedida: string | null;
+  }

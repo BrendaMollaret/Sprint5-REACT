@@ -1,8 +1,9 @@
 export interface Rubro {
+    id: number;
     nombreRubro: string;
-    fechaAltaRubro: Date;
-    fechaBajaRubro: Date;
-    fechaModificacionRubro: Date;
-    rubroPadre?: Rubro;
-    rubroHijoList?: Rubro[];
-}
+    fechaAltaRubro: string;
+    fechaBajaRubro: string | null;
+    fechaModificacionRubro: string | null;
+    rubroHijoList: Rubro[]; 
+  }
+

@@ -2,14 +2,15 @@ import { Rubro } from "./Rubro";
 import { UnidadMedida } from "./UnidadMedida";
 
 export interface ArticuloInsumo {
-    fechaHoraAltaArticuloInsumo: Date;
-    fechaHoraModificacionArticuloInsumo: Date;
-    fechaHoraBajaArticuloInsumo: Date;
+    id: number;
+    fechaHoraAltaArticuloInsumo: string;
+    fechaHoraModificacionArticuloInsumo: string | null;
+    fechaHoraBajaArticuloInsumo: string | null;
     nombreArticuloInsumo: string;
     precioCompra: number;
     stockActual: number;
     stockMinimo: number;
     urlImagen: string;
-    unidadMedida: UnidadMedida; // Relación muchos a uno con UnidadMedida
-    rubro: Rubro; // Relación muchos a uno con Rubro
-}
+    unidadMedida: UnidadMedida;
+    rubro: Rubro;
+  }

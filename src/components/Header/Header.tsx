@@ -1,4 +1,4 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useIsLoggedIn from "../../hooks/useIsLoggedIn";
 
@@ -14,40 +14,50 @@ const Header = () => {
   }
 
   return (
-    <>
-      <Navbar expand="lg" className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand onClick={() => navigate("/")}>
-            <img
-              alt=""
-              src="/images/logo-horizontal-rb.png"
-              width="150"
-              height="70"
-              className="d-inline-block align-top"
-            />
-          </Navbar.Brand>
+    <Row className="align-items-center">
+      <Col md={4}>
+        <Navbar expand="lg" className="bg-body-tertiary">
+          <Container>
+            <Navbar.Brand onClick={() => navigate("/")}>
+              <img
+                alt=""
+                src="/images/logo-horizontal-rb.png"
+                width="150"
+                height="70"
+                className="d-inline-block align-top"
+              />
+            </Navbar.Brand>
+          </Container>
+        </Navbar>
+      </Col>
 
+      <Col md={4} className="d-flex justify-content-center">
+        <Navbar expand="lg">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto" style={{ margin: "0 auto" }}>
+            <Nav className="me-auto">
               <Nav.Link onClick={() => navigate("/")}>Inicio</Nav.Link>
               <Nav.Link>Locales</Nav.Link>
               <Nav.Link>Nosotros</Nav.Link>
-              <Nav.Link>Contactanos</Nav.Link>
+              <Nav.Link href="#footer">Contactanos</Nav.Link>
               <Nav.Link onClick={() => navigate("/admin")}>Admin</Nav.Link>
               {isLoggedIn && <Nav.Link onClick={onLogOut}>Log out</Nav.Link>}
             </Nav>
-
-            <Nav className="me-auto d-flex justify-content-center">
-              <Container className="">
-                <Button className="btn btn-danger">Registrarse</Button>
-                <Nav.Link>Iniciar sesión</Nav.Link>
-              </Container>
-            </Nav>
           </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+        </Navbar>
+      </Col>
+
+      <Col md={4} className="d-flex justify-content-end">
+        <Navbar expand="lg">
+          <Nav>
+            <Button className="btn btn-danger">Registrarse</Button>
+          </Nav>
+          <Nav>
+            <Nav.Link>Iniciar sesión</Nav.Link>
+          </Nav>
+        </Navbar>
+      </Col>
+    </Row>
   );
 };
 

@@ -1,22 +1,43 @@
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { ArticuloManufacturado } from "../../types/ArticuloManufacturado";
 
-const ProductCard = ({ imagenUrl, nombre, precio, tieneStock }) => {
+const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = ({ articuloManufacturado }) => {
+  const navigate = useNavigate();
+
+  if (!articuloManufacturado) {
+    return null;
+  }
+
+  const {
+    nombreArticuloManufacturado,
+    descripcionArticuloManufacturado,
+    precioVenta,
+    urlImagen_AM,
+    categoriaArticuloManufacturado,
+  } = articuloManufacturado;
+
   return (
-    <Card style={{ width: "18rem", margin: "10px" }}>
-      <Card.Img variant="top" src={imagenUrl} alt={nombre} />
-      <Card.Body>
-        <Card.Title>{nombre}</Card.Title>
-        <Card.Text>
-          Precio: ${precio}
-          <br />
-          Stock: {tieneStock ? "Disponible" : "Agotado"}
-        </Card.Text>
-        <Button variant="primary">Ver más</Button>
-        <Button variant="success" className="ms-2">
-          Agregar al carrito
-        </Button>
-      </Card.Body>
-    </Card>
+    <Col xs={12} md={6} lg={4}>
+      <Card style={{ width: "18rem", margin: "10px" }}>
+        <Card.Img variant="top" src={urlImagen_AM} alt={nombreArticuloManufacturado} />
+        <Card.Body>
+          <Card.Title>{nombreArticuloManufacturado}</Card.Title>
+          <Card.Title>{descripcionArticuloManufacturado}</Card.Title>
+          <Card.Text>
+            Precio: ${precioVenta}
+            <br />
+            Categoría: {categoriaArticuloManufacturado.nombreCategoriaArticuloManufacturado}
+          </Card.Text>
+          <Button variant="primary" onClick={() => navigate(`/detalle/${articuloManufacturado.id}`)}>
+            Ver más
+          </Button>
+          <Button variant="success" className="ms-2">
+            Agregar al carrito
+          </Button>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

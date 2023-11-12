@@ -3,10 +3,10 @@ import { Rubro } from "../types/Rubro";
 
 const BASE_URL = 'https://sprint4-elbuensabor.onrender.com';
 
-export const ProductService = {
+export const RubroService = {
 
     
-    getProducts: async (): Promise<Rubro[]> => {
+    getAllRubro: async (): Promise<Rubro[]> => {
        
         const response = await fetch(`${BASE_URL}/api/v1/rubro`);
         const data = await response.json();
@@ -14,7 +14,7 @@ export const ProductService = {
     },
 
     
-    getProduct: async (id:number): Promise<Rubro> => {
+    getRubro: async (id:number): Promise<Rubro> => {
 
         const response = await fetch (`${BASE_URL}/api/v1/rubro/${id}`);
         const data = await response.json();
@@ -22,7 +22,7 @@ export const ProductService = {
         
     },
 
-    createProduct:async (rubro:Rubro):Promise<Rubro> => {
+    createRubro:async (rubro:Rubro):Promise<Rubro> => {
 
         const response = await fetch(`${BASE_URL}/api/v1/rubro`, {
             method: "POST",
@@ -37,7 +37,7 @@ export const ProductService = {
         
     },
 
-    updateProduct: async (id: number, rubro:Rubro): Promise<Rubro> => {
+    updateRubro: async (id: number, rubro:Rubro): Promise<Rubro> => {
         
         const response = await fetch(`${BASE_URL}/api/v1/rubro/${id}`, {
             method: "PUT",
@@ -53,7 +53,7 @@ export const ProductService = {
 
     
 
-    deleteProduct: async (id:number): Promise<void> => {
+    deleteRubro: async (id:number): Promise<void> => {
         await fetch(`${BASE_URL}/api/v1/rubro/${id}`, {
             method: "DELETE"
         });
