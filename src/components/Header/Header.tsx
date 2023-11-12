@@ -1,44 +1,54 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap"
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import useIsLoggedIn from "../../hooks/useIsLoggedIn";
 
 const Header = () => {
-  return (
+  // Utils
+  const navigate = useNavigate();
+  const isLoggedIn = useIsLoggedIn();
 
+  // Handlers
+  function onLogOut() {
+    window.localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  }
+
+  return (
     <>
-    <Navbar expand="lg" className="bg-body-tertiary">
-    <Container>
-    <Navbar.Brand href="#home">
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand onClick={() => navigate("/")}>
             <img
               alt=""
               src="/images/logo-horizontal-rb.png"
               width="150"
               height="70"
               className="d-inline-block align-top"
-            />{' '}
-            
+            />
           </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link href="#home">Inicio</Nav.Link>
-          <Nav.Link href="#link">Locales</Nav.Link>
-          <Nav.Link href="#link">Nosotros</Nav.Link>
-          <Nav.Link href="#link">Contactanos</Nav.Link>
-        </Nav>
-        <Nav className="me-auto">
-          <Container className="">
-            <Button> Registrarse </Button>
-            <Button> Iniciar sesión </Button>
-          </Container>
 
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-    
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto" style={{ margin: "0 auto" }}>
+              <Nav.Link onClick={() => navigate("/")}>Inicio</Nav.Link>
+              <Nav.Link>Locales</Nav.Link>
+              <Nav.Link>Nosotros</Nav.Link>
+              <Nav.Link>Contactanos</Nav.Link>
+              <Nav.Link onClick={() => navigate("/admin")}>Admin</Nav.Link>
+              {isLoggedIn && <Nav.Link onClick={onLogOut}>Log out</Nav.Link>}
+            </Nav>
+
+            <Nav className="me-auto d-flex justify-content-center">
+              <Container className="">
+                <Button className="btn btn-danger">Registrarse</Button>
+                <Nav.Link>Iniciar sesión</Nav.Link>
+              </Container>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
-     
-   
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
