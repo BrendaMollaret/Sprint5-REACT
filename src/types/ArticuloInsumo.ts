@@ -2,10 +2,11 @@ import { Rubro } from "./Rubro";
 import { UnidadMedida } from "./UnidadMedida";
 
 export interface ArticuloInsumo {
+    id: number;
+    nombreArticuloInsumo: string;
     fechaHoraAltaArticuloInsumo: Date;
     fechaHoraModificacionArticuloInsumo: Date;
     fechaHoraBajaArticuloInsumo: Date;
-    nombreArticuloInsumo: string;
     precioCompra: number;
     stockActual: number;
     stockMinimo: number;

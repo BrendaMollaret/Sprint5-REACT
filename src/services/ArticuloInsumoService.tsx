@@ -1,14 +1,14 @@
 import { ArticuloInsumo } from "../types/ArticuloInsumo";
 
 
-const BASE_URL = 'https://sprint4-elbuensabor.onrender.com';
+const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
 
-export const ProductService = {
+export const ArticuloInsumoService = {
 
     
     getAllProducts: async (): Promise<ArticuloInsumo[]> => {
        
-        const response = await fetch(`${BASE_URL}/api/v1/articuloInsumo`);
+        const response = await fetch(`${BASE_URL}/api/v1/articuloInsumo/paged`);
         const data = await response.json();
         return data;
     },
@@ -62,3 +62,5 @@ export const ProductService = {
 
   
 }
+
+export default ArticuloInsumoService;

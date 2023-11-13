@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useIsLoggedIn from "../../hooks/useIsLoggedIn";
+import { CartFill } from "react-bootstrap-icons";
 
 const Header = () => {
   // Utils
@@ -40,8 +41,20 @@ const Header = () => {
 
             <Nav className="me-auto d-flex justify-content-center">
               <Container className="">
+
+                {/* Botón de carrito de compras */}
+                {isLoggedIn && <Nav.Link onClick={() => navigate("/cart")}>
+                <Button variant="danger" className="mx-2">
+                  <CartFill size={20} className="d-inline-block align-top" />
+                </Button>
+                  </Nav.Link>}
+
+                {/* Botón de Registrarse */}
                 <Button className="btn btn-danger">Registrarse</Button>
+                
+                {/* Enlace de Iniciar sesión */}
                 <Nav.Link>Iniciar sesión</Nav.Link>
+
               </Container>
             </Nav>
           </Navbar.Collapse>
