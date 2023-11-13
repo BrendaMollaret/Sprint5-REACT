@@ -50,10 +50,10 @@ const Header = () => {
       <Col md={4} className="d-flex justify-content-end">
         <Navbar expand="lg">
           <Nav>
-            <Button className="btn btn-danger">Registrarse</Button>
+            <Button className="btn btn-danger" onClick={() => navigate('/register')}>Registrarse</Button>
           </Nav>
           <Nav>
-            <Nav.Link>Iniciar sesión</Nav.Link>
+            <Nav.Link onClick={() => navigate('/login')}>Iniciar sesión</Nav.Link>
           </Nav>
         </Navbar>
       </Col>

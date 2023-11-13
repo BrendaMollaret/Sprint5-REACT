@@ -3,14 +3,24 @@ import { Button, Card, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ArticuloManufacturado } from "../../types/ArticuloManufacturado";
 import { useCarrito } from "../CarritoProvider/CarritoProvider";
+import { detallesPedido } from "../../types/detallesPedido"; // Importa detallesPedido
 
 const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = ({ articuloManufacturado }) => {
   const navigate = useNavigate();
   const { addToCart } = useCarrito();
 
   const handleAddToCart = () => {
-    addToCart(articuloManufacturado);
-    console.log("Nuevo carrito:", articuloManufacturado, "Agregado al carrito");
+    // Aquí estamos creando un objeto detallesPedido antes de agregarlo al carrito
+    const detalle: detallesPedido = {
+      id: 0, // Puedes asignar un valor único o dejar que el backend lo maneje
+      cantidad: 1, // Cantidad inicial, puedes ajustarla según tus necesidades
+      subtotal: articuloManufacturado.precioVenta,
+      subTotalCosto: 0, // Ajusta según tu lógica
+      articuloManufacturado,
+    };
+
+    addToCart(detalle);
+    console.log("Nuevo carrito:", detalle, "Agregado al carrito");
   };
 
   if (!articuloManufacturado) {
