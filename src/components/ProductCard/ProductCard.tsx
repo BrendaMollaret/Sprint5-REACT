@@ -1,9 +1,17 @@
+import React from "react";
 import { Button, Card, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ArticuloManufacturado } from "../../types/ArticuloManufacturado";
+import { useCarrito } from "../CarritoProvider/CarritoProvider";
 
 const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = ({ articuloManufacturado }) => {
   const navigate = useNavigate();
+  const { addToCart } = useCarrito();
+
+  const handleAddToCart = () => {
+    addToCart(articuloManufacturado);
+    console.log("Nuevo carrito:", articuloManufacturado, "Agregado al carrito");
+  };
 
   if (!articuloManufacturado) {
     return null;
@@ -32,7 +40,7 @@ const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = 
           <Button variant="primary" onClick={() => navigate(`/detalle/${articuloManufacturado.id}`)}>
             Ver más
           </Button>
-          <Button variant="success" className="ms-2">
+          <Button variant="success" className="ms-2" onClick={handleAddToCart}>
             Agregar al carrito
           </Button>
         </Card.Body>

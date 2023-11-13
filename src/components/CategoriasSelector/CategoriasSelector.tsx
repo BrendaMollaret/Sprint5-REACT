@@ -1,7 +1,11 @@
 import { Container, Row, Col, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { FaHamburger, FaPizzaSlice, FaCocktail, FaHotdog, FaBreadSlice, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const CategoriasSelector = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="bg-body-tertiary p-3">
       <Container>
@@ -29,7 +33,7 @@ const CategoriasSelector = () => {
           {/* Carrito al final a la derecha */}
           <Col md={2} className="d-flex justify-content-end mb-2">
             <Nav>
-              <Nav.Link href="#carrito"><FaShoppingCart /> Carrito</Nav.Link>
+              <Nav.Link onClick={() => navigate('/detallePedido')}><FaShoppingCart /> Carrito</Nav.Link>
             </Nav>
           </Col>
           

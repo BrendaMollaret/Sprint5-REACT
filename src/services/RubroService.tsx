@@ -1,7 +1,7 @@
 import { Rubro } from "../types/Rubro";
 
 
-const BASE_URL = 'https://sprint4-elbuensabor.onrender.com';
+const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
 
 export const RubroService = {
 

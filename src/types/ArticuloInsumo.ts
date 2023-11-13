@@ -11,6 +11,8 @@ export interface ArticuloInsumo {
     stockActual: number;
     stockMinimo: number;
     urlImagen: string;
+    
+    //Relaciones
     unidadMedida: UnidadMedida;
     rubro: Rubro;
   }

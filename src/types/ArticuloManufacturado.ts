@@ -14,6 +14,7 @@ export interface ArticuloManufacturado {
     fechaModificacionArticuloManufacturado: string | null;
     fechaBajaArticuloManufacturado: string | null;
 
+    //Relaciones
     detalleArticuloManufacturadoList: DetalleArticuloManufacturado[];
     categoriaArticuloManufacturado: CategoriaArticuloManufacturado;
 

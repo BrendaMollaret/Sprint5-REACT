@@ -4,21 +4,26 @@ import { ArticuloManufacturadoService } from "../../services/ArticuloManufactura
 import { ArticuloManufacturado } from "../../types/ArticuloManufacturado";
 
 const DetalleProducto: React.FC = () => {
-  const { articuloManufacturadoId } = useParams();
+  const { idProduct } = useParams();
   const [articuloManufacturado, setArticuloManufacturado] = useState<ArticuloManufacturado | null>(null);
 
   useEffect(() => {
     const fetchArticuloManufacturado = async () => {
       try {
-        const data = await ArticuloManufacturadoService.getArticuloManufacturado(Number(articuloManufacturadoId));
-        setArticuloManufacturado(data);
+        if (idProduct && !isNaN(parseInt(idProduct, 10))) {
+          const articuloData = await ArticuloManufacturadoService.getArticuloManufacturado(parseInt(idProduct, 10));
+          setArticuloManufacturado(articuloData);
+          // You can add additional fetch calls or logic here if needed
+        } else {
+          console.error('Identificador de producto no válido');
+        }
       } catch (error) {
-        console.error("Error fetching ArticuloManufacturado:", error);
+        console.error('Error al cargar el producto:', error);
       }
     };
 
     fetchArticuloManufacturado();
-  }, [articuloManufacturadoId]);
+  }, [idProduct]);
 
   if (!articuloManufacturado) {
     return <div>Cargando...</div>;
@@ -36,8 +41,7 @@ const DetalleProducto: React.FC = () => {
           <h5>Categoría: {articuloManufacturado?.categoriaArticuloManufacturado.nombreCategoriaArticuloManufacturado}</h5>
           <p className="lead">Descripción: {articuloManufacturado?.descripcionArticuloManufacturado}</p>
           <p className="lead">Precio: ${articuloManufacturado?.precioVenta}</p>
-
-          {/* Aquí puedes mostrar más detalles según tus necesidades */}
+          {/* Add more details or components as needed */}
         </div>
       </div>
     </div>

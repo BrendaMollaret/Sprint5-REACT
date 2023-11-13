@@ -16,7 +16,7 @@ export const CategoriaArticuloManufacturadoService = {
     
     getArticuloManufacturado: async (id:number): Promise<CategoriaArticuloManufacturado> => {
 
-        const response = await fetch (`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/paged/${id}`);
+        const response = await fetch (`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/${id}`);
         const data = await response.json();
         return data;
         
@@ -24,7 +24,7 @@ export const CategoriaArticuloManufacturadoService = {
 
     createArticuloManufacturado:async (categoriaArticuloManufacturado : CategoriaArticuloManufacturado):Promise<CategoriaArticuloManufacturado> => {
 
-        const response = await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/paged`, {
+        const response = await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ export const CategoriaArticuloManufacturadoService = {
 
     updateArticuloManufacturado: async (id: number, categoriaArticuloManufacturado: CategoriaArticuloManufacturado): Promise<CategoriaArticuloManufacturado> => {
         
-        const response = await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/paged/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type':'application/json'
@@ -54,7 +54,7 @@ export const CategoriaArticuloManufacturadoService = {
     
 
     deleteCategoriaArticuloManufacturado: async (id:number): Promise<void> => {
-        await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/paged/${id}`, {
+        await fetch(`${BASE_URL}/api/v1/CategoriaArticuloManufacturado/${id}`, {
             method: "DELETE"
         });
     }

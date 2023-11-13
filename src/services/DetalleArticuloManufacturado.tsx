@@ -1,64 +1,54 @@
-import { ArticuloInsumo } from "../types/ArticuloInsumo";
+import { DetalleArticuloManufacturado } from "../types/DetalleArticuloManufacturado";
 
+const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
 
-const BASE_URL = 'https://sprint4-elbuensabor.onrender.com';
+export const DetalleArticuloManufacturadoService = {
 
-export const ArticuloInsumoService = {
-
-    
-    getAllArticuloInsumo: async (): Promise<ArticuloInsumo[]> => {
+    getAllDetalleArticuloManufacturado: async (): Promise<DetalleArticuloManufacturado[]> => {
        
-        const response = await fetch(`${BASE_URL}/api/v1/articuloInsumo/paged`);
+        const response = await fetch(`${BASE_URL}/api/v1/detalleArticuloManufacturado/paged`);
         const data = await response.json();
         return data;
     },
 
-    
-    getArticuloInsumo: async (id:number): Promise<ArticuloInsumo> => {
+    getDetalleArticuloManufacturado: async (id: number): Promise<DetalleArticuloManufacturado> => {
 
-        const response = await fetch (`${BASE_URL}/api/v1/articuloInsumo/paged/${id}`);
+        const response = await fetch (`${BASE_URL}/api/v1/detalleArticuloManufacturado/${id}`);
         const data = await response.json();
         return data;
-        
     },
 
-    createArticuloInsumo:async (articuloInsumo:ArticuloInsumo):Promise<ArticuloInsumo> => {
+    createDetalleArticuloManufacturado: async (detalleArticuloManufacturado: DetalleArticuloManufacturado): Promise<DetalleArticuloManufacturado> => {
 
-        const response = await fetch(`${BASE_URL}/api/v1/articuloInsumo/paged`, {
+        const response = await fetch(`${BASE_URL}/api/v1/detalleArticuloManufacturado`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(articuloInsumo)
+            body: JSON.stringify(detalleArticuloManufacturado)
         });
 
         const data = await response.json();
         return data;
-        
     },
 
-    updateArticuloInsumo: async (id: number, articuloInsumo: ArticuloInsumo): Promise<ArticuloInsumo> => {
+    updateDetalleArticuloManufacturado: async (id: number, detalleArticuloManufacturado: DetalleArticuloManufacturado): Promise<DetalleArticuloManufacturado> => {
         
-        const response = await fetch(`${BASE_URL}/api/v1/articuloInsumo/paged/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/v1/detalleArticuloManufacturado/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type':'application/json'
             },
-            body: JSON.stringify(articuloInsumo)
+            body: JSON.stringify(detalleArticuloManufacturado)
         });
 
         const data = await response.json();
         return data;
     },
 
-    
-
-    deleteArticuloInsumo: async (id:number): Promise<void> => {
-        await fetch(`${BASE_URL}/api/v1/articuloInsumo/paged/${id}`, {
+    deleteDetalleArticuloManufacturado: async (id: number): Promise<void> => {
+        await fetch(`${BASE_URL}/api/v1/detalleArticuloManufacturado/${id}`, {
             method: "DELETE"
         });
     }
-    
-
-  
-}
+};

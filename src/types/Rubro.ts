@@ -4,6 +4,9 @@ export interface Rubro {
     fechaAltaRubro: string;
     fechaBajaRubro: string | null;
     fechaModificacionRubro: string | null;
+    
+    //Relaciones
+    rubroPadre: Rubro;
     rubroHijoList: Rubro[]; 
   }
 
