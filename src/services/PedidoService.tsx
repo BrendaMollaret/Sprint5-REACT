@@ -6,6 +6,7 @@ export const PedidoService = {
     
     getAllPedidos: async (): Promise<Pedido[]> => {
         const response = await fetch(`${BASE_URL}/api/v1/pedido/paged`);
+
         const data = await response.json();
         return data;
     },
