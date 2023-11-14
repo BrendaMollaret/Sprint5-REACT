@@ -53,7 +53,7 @@ export const ClienteService = {
             // Recuperar el token del localStorage
             const token = localStorage.getItem('token');
     
-            const response = await fetch(`${BASE_URL}/showProfile`, {
+            const response = await fetch(`${BASE_URL}/api/v1/cliente/showProfile`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

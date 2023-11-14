@@ -1,6 +1,5 @@
 import { Navbar, Container, Nav, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import useIsLoggedIn from "../../hooks/useIsLoggedIn";
 import { ClienteService } from "../../services/ClienteService";
 
 const Header = () => {
@@ -25,7 +24,7 @@ const Header = () => {
   const handleLogout = () => {
     // Eliminar el token del localStorage al hacer clic en el botón "Log Out"
     localStorage.removeItem("token");
-    // Puedes realizar otras acciones de logout si es necesario
+    navigate('/');
   };
 
   return (

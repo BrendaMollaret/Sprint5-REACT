@@ -1,22 +1,21 @@
 import React from "react";
 import { Navigate } from 'react-router-dom';
 
-import useIsLoggedIn from "../hooks/useIsLoggedIn";
-
 type PrivateRouteProps = {
     element: React.ReactNode;
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
-    //Utils
-    //Logica para fijarnos si está autenticado o no
-    const isLoggedIn = useIsLoggedIn();
+    // Utils
+    // Lógica para verificar si hay un token en el localStorage
+    const token = localStorage.getItem("token");
 
-    if (isLoggedIn) {
+    if (token) {
         return element;
     }
-    return <Navigate to="/login"/>;
-
+    
+    // Si no hay token, redirige a la página de inicio de sesión
+    return <Navigate to="/login" />;
 }
 
 export default PrivateRoute;
