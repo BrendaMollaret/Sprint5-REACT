@@ -40,7 +40,7 @@ const ModalUnidadMedida: React.FC<UnidadMedidaModalProps> = ({showModal,handleCl
         validationSchema: validationSchema,
 
         onSubmit: async (values) => {
-            console.log('Datos de la unidad creada:', JSON.stringify(values));
+            console.log('(antes del service)Datos de la unidad creada:', JSON.stringify(values));
 
             await createUnidadMedida(values);
             handleClose();

@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ClienteService } from "../../services/ClienteService";
+import { toast } from 'react-toastify';
 
 const Header = () => {
   // Utils
@@ -25,6 +26,7 @@ const Header = () => {
     // Eliminar el token del localStorage al hacer clic en el botón "Log Out"
     localStorage.removeItem("token");
     navigate('/');
+    toast.success('Cierre de sesión exitoso');
   };
 
   return (
@@ -54,7 +56,10 @@ const Header = () => {
               <Nav.Link>Locales</Nav.Link>
               <Nav.Link>Nosotros</Nav.Link>
 
-              <Nav.Link onClick={onShowProfile}>ShowProfile</Nav.Link>
+          
+              {localStorage.getItem("token") && (
+                <Nav.Link onClick={onShowProfile}>ShowProfile</Nav.Link>
+              )}
 
               <Nav.Link onClick={() => navigate("/admin")}>Admin</Nav.Link>
 

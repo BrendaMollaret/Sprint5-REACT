@@ -3,9 +3,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Container, Button } from "react-bootstrap";
 import { AuthService } from "../../services/AuthService";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 const FormLogin: React.FC = () => {
+  const navigate = useNavigate();
+
+
   // YUP - Esquema de validación
   const validationSchema = Yup.object({
     username: Yup.string().required("El nombre de usuario es requerido"),
@@ -25,7 +30,8 @@ const FormLogin: React.FC = () => {
       try {
         const token = await AuthService.login(values);
         console.log("Inicio de sesión exitoso. Token:", token);
-        // Aquí puedes realizar acciones adicionales después del inicio de sesión, como redirigir a otra página.
+        navigate('/');
+        toast.success('Inicio de sesión exitoso');
       } catch (error) {
         console.error("Error al iniciar sesión:");
         // Puedes mostrar un mensaje de error al usuario o realizar otras acciones según tus necesidades.
