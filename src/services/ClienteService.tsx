@@ -1,6 +1,7 @@
 import { Cliente } from "../types/Cliente";
+import {ClienteDTO} from '../types/ClienteDTO';
 
-const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
+const BASE_URL = 'http://localhost:8080';
 
 export const ClienteService = {
     getAllClientes: async (): Promise<Cliente[]> => {
@@ -45,5 +46,37 @@ export const ClienteService = {
         await fetch(`${BASE_URL}/api/v1/cliente/${id}`, {
             method: "DELETE"
         });
+    },
+
+    showProfile: async (): Promise<ClienteDTO> => {
+        try {
+            // Recuperar el token del localStorage
+            const token = localStorage.getItem('token');
+    
+            const response = await fetch(`${BASE_URL}/showProfile`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error al recuperar datos');
+            }
+    
+            const data = await response.json();
+            console.log('Datos recuperados:', data);
+    
+            return data;
+    
+        } catch (error) {
+            console.error('Error al recuperar datos');
+            throw error;
+        }
     }
+    
+    
+
+   
+      
 };

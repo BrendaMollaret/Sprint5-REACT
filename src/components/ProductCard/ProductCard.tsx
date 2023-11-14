@@ -29,7 +29,6 @@ const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = 
 
   const {
     nombreArticuloManufacturado,
-    descripcionArticuloManufacturado,
     precioVenta,
     urlImagen_AM,
     categoriaArticuloManufacturado,
@@ -41,7 +40,6 @@ const ProductCard: React.FC<{ articuloManufacturado: ArticuloManufacturado }> = 
         <Card.Img variant="top" src={urlImagen_AM} alt={nombreArticuloManufacturado} />
         <Card.Body>
           <Card.Title>{nombreArticuloManufacturado}</Card.Title>
-          <Card.Title>{descripcionArticuloManufacturado}</Card.Title>
           <Card.Text>
             Precio: ${precioVenta}
             <br />

@@ -1,17 +1,32 @@
 import { Navbar, Container, Nav, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useIsLoggedIn from "../../hooks/useIsLoggedIn";
+import { ClienteService } from "../../services/ClienteService";
 
 const Header = () => {
   // Utils
   const navigate = useNavigate();
-  const isLoggedIn = useIsLoggedIn();
 
   // Handlers
-  function onLogOut() {
-    window.localStorage.removeItem("isLoggedIn");
-    navigate("/");
-  }
+  const onShowProfile = async () => {
+    try {
+      const profileData = await ClienteService.showProfile();
+
+      navigate("/showProfile");
+
+      console.log("Profile Data:", profileData);
+    } catch (error) {
+      console.error("Error retrieving profile data:", error);
+    }
+  };
+
+
+
+  const handleLogout = () => {
+    // Eliminar el token del localStorage al hacer clic en el botón "Log Out"
+    localStorage.removeItem("token");
+    // Puedes realizar otras acciones de logout si es necesario
+  };
 
   return (
     <Row className="align-items-center">
@@ -39,9 +54,15 @@ const Header = () => {
               <Nav.Link onClick={() => navigate("/")}>Inicio</Nav.Link>
               <Nav.Link>Locales</Nav.Link>
               <Nav.Link>Nosotros</Nav.Link>
-              <Nav.Link href="#footer">Contactanos</Nav.Link>
+
+              <Nav.Link onClick={onShowProfile}>ShowProfile</Nav.Link>
+
               <Nav.Link onClick={() => navigate("/admin")}>Admin</Nav.Link>
-              {isLoggedIn && <Nav.Link onClick={onLogOut}>Log out</Nav.Link>}
+
+              {/* Botón de Log Out */}
+              {localStorage.getItem("token") && (
+                <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -50,10 +71,17 @@ const Header = () => {
       <Col md={4} className="d-flex justify-content-end">
         <Navbar expand="lg">
           <Nav>
-            <Button className="btn btn-danger" onClick={() => navigate('/register')}>Registrarse</Button>
+            <Button
+              className="btn btn-danger"
+              onClick={() => navigate("/register")}
+            >
+              Registrarse
+            </Button>
           </Nav>
           <Nav>
-            <Nav.Link onClick={() => navigate('/login')}>Iniciar sesión</Nav.Link>
+            <Nav.Link onClick={() => navigate("/login")}>
+              Iniciar sesión
+            </Nav.Link>
           </Nav>
         </Navbar>
       </Col>

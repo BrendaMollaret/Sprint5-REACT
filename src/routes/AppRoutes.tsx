@@ -7,9 +7,11 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import Login from "../pages/login/Login";
 
+import ShowProfilePage from "../pages/showProfilePage/showProfilePage";
+
 
 const PrivateRoute = React.lazy(() => import ('./PrivateRoute'));
-const Admin = React.lazy(() => import ('../pages/AdminPage/Admin'))
+const AdminPage = React.lazy(() => import ('../pages/AdminPage/AdminPage'))
 
 const AppRoutes = () => {
   return (
@@ -24,10 +26,13 @@ const AppRoutes = () => {
 
           <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
+          <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} />
 
           <Route path="/detalle/:idProduct" element={<DetalleProductoPage />} />
           <Route path="/detallePedido" element={<DetallePedidoPage />} />
+
+
+          <Route path="/showProfile" element={<ShowProfilePage/>}/>
         </Routes>
   
  
