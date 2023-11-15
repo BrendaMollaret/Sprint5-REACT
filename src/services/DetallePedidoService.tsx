@@ -1,6 +1,6 @@
 import { detallesPedido } from "../types/detallesPedido";
 
-const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
+const BASE_URL = 'http://localhost:8080';
 
 export const DetallePedidoService = {
     

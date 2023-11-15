@@ -1,7 +1,7 @@
 import { ArticuloManufacturado } from "../types/ArticuloManufacturado";
 
 
-const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
+const BASE_URL = 'http://localhost:8080';
 
 export const ArticuloManufacturadoService = {
 

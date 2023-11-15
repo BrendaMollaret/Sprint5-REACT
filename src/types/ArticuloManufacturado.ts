@@ -11,8 +11,8 @@ export interface ArticuloManufacturado {
     tiempoEstimadoCocina: number;
     urlImagen_AM: string;
     fechaAltaArticuloManufacturado: string;
-    fechaModificacionArticuloManufacturado: string | null;
-    fechaBajaArticuloManufacturado: string | null;
+    fechaModificacionArticuloManufacturado?: string;
+    fechaBajaArticuloManufacturado?: string;
 
     //Relaciones
     detalleArticuloManufacturadoList: DetalleArticuloManufacturado[];

@@ -11,5 +11,5 @@ export interface registerRequest {
     nroCalle: number,
     pisoDpto: number,
     nroDpto: number,
-    localidad: number,
+    idLocalidad: number,
 }

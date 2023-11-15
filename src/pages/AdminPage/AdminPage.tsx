@@ -1,16 +1,15 @@
-import ABMUnidadMedida from "../../components/ABMUnidadMedida/ABMUnidadMedida"
-import AdminABMSelector from "../../components/AdminABMSelector/AdminABMSelector"
-
+import ABMUnidadMedida from "../../components/ABMUnidadMedida/ABMUnidadMedida";
+import AdminABMSelector from "../../components/AdminABMSelector/AdminABMSelector";
 
 
 const AdminPage = () => {
   return (
     <>
-        <AdminABMSelector/>
-        <ABMUnidadMedida/>
-
+      <AdminABMSelector />
+      <ABMUnidadMedida />
+      
     </>
-  )
-}
+  );
+};
 
-export default AdminPage
+export default AdminPage;

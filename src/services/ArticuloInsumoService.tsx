@@ -1,7 +1,7 @@
 import { ArticuloInsumo } from "../types/ArticuloInsumo";
 
 
-const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
+const BASE_URL = 'http://localhost:8080';
 
 export const ArticuloInsumoService = {
 

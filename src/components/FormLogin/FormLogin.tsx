@@ -35,7 +35,7 @@ const FormLogin: React.FC = () => {
         toast.success('Inicio de sesión exitoso');
       } catch (error) {
         console.error("Error al iniciar sesión:");
-        // Puedes mostrar un mensaje de error al usuario o realizar otras acciones según tus necesidades.
+        
       }
     },
   });

@@ -1,7 +1,7 @@
 import { Rubro } from "../types/Rubro";
 
 
-const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
+const BASE_URL = 'http://localhost:8080';
 
 export const RubroService = {
 
