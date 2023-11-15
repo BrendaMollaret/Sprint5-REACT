@@ -1,6 +1,6 @@
 import { LoginRequest } from "../types/LoginRequest";
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://sprint5-back-seguridad.onrender.com';
 
 export const AuthService = {
   

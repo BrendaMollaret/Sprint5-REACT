@@ -8,6 +8,7 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import Login from "../pages/login/Login";
 
 import ShowProfilePage from "../pages/showProfilePage/showProfilePage";
+import AdminPageGeneral from "../pages/AdminPageGeneral/AdminPageGeneral";
 
 
 const PrivateRoute = React.lazy(() => import ('./PrivateRoute'));
@@ -26,8 +27,7 @@ const AppRoutes = () => {
 
           <Route path="/register" element={<RegisterPage />} />
         
-          <Route path="/admin" element={<AdminPage />} />
-          {/* <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} /> */}
+          <Route path="/admin" element={<PrivateRoute element= {<AdminPageGeneral/>}/>} />
 
           <Route path="/detalle/:idProduct" element={<DetalleProductoPage />} />
           <Route path="/detallePedido" element={<DetallePedidoPage />} />
