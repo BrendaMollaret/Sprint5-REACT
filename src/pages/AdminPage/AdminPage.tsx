@@ -1,13 +1,16 @@
-import AdminComponent from "../../components/AdminComponent/AdminComponent"
+import ABMUnidadMedida from "../../components/ABMUnidadMedida/ABMUnidadMedida"
+import AdminABMSelector from "../../components/AdminABMSelector/AdminABMSelector"
 
 
-const Admin = () => {
+
+const AdminPage = () => {
   return (
     <>
-        <AdminComponent/>
+        <AdminABMSelector/>
+        <ABMUnidadMedida/>
 
     </>
   )
 }
 
-export default Admin
+export default AdminPage

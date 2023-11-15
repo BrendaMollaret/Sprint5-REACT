@@ -61,7 +61,10 @@ const Header = () => {
                 <Nav.Link onClick={onShowProfile}>ShowProfile</Nav.Link>
               )}
 
-              <Nav.Link onClick={() => navigate("/admin")}>Admin</Nav.Link>
+              
+              {localStorage.getItem("token") && (
+                <Nav.Link onClick={() => navigate("/adminPage")}>Admin</Nav.Link>
+              )}
 
               {/* Botón de Log Out */}
               {localStorage.getItem("token") && (
@@ -74,18 +77,23 @@ const Header = () => {
 
       <Col md={4} className="d-flex justify-content-end">
         <Navbar expand="lg">
+          
           <Nav>
-            <Button
-              className="btn btn-danger"
-              onClick={() => navigate("/register")}
-            >
-              Registrarse
-            </Button>
+            {!localStorage.getItem("token") && (
+                <Button className="btn btn-danger" onClick={() => navigate("/register")} >
+                Registrarse
+              </Button>
+            )}
           </Nav>
+
           <Nav>
-            <Nav.Link onClick={() => navigate("/login")}>
-              Iniciar sesión
-            </Nav.Link>
+
+          {!localStorage.getItem("token") && (
+                <Nav.Link onClick={() => navigate("/login")}>
+                Iniciar sesión
+              </Nav.Link>
+          )}
+            
           </Nav>
         </Navbar>
       </Col>

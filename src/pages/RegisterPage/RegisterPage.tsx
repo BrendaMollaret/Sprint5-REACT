@@ -1,5 +1,4 @@
-import FormRegister from "../../components/FormRegister.tsx/FormRegister"
-
+import FormRegister from "../../components/FormRegister/FormRegister"
 
 const RegisterPage = () => {
   return (

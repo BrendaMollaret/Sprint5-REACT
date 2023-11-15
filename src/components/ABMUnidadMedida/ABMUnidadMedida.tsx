@@ -9,7 +9,7 @@ import EditButton from "../EditButton/EditButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 
 
-const AdminComponent = () => {
+const ABMUnidadMedida = () => {
 
   //Variable que va a contener los datos recibidos por la API
   const [unidadMedidas, setUnidadMedidas] = useState<UnidadMedida[]>([]);
@@ -141,4 +141,4 @@ return (
 }
 
 
-export default AdminComponent;
+export default ABMUnidadMedida;
