@@ -80,7 +80,7 @@ const Header = () => {
           
           <Nav>
             {!localStorage.getItem("token") && (
-                <Button className="btn btn-danger" onClick={() => navigate("/register")} >
+                <Button className="btn btn-danger" onClick={() => navigate("/registrarse")} >
                 Registrarse
               </Button>
             )}

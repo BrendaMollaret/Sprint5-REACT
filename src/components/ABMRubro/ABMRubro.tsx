@@ -66,7 +66,7 @@ const handleClick = (newNombreRubro: string, rub: Rubro, modal: ModalType) => {
   setModalType(modal);
   setRubro(rub);
   setShowModal(true);
-
+  
 };
 
 
