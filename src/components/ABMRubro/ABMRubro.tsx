@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
-import { UnidadMedida } from "../../types/UnidadMedida";
-import { UnidadMedidaService } from "../../services/UnidadMedidaService";
-import ModalUnidadMedida from "../ModalUnidadMedida/ModalUnidadMedida";
 import { ModalType } from "../../types/ModalType";
 import Loader from "../Loader/Loader";
 import EditButton from "../EditButton/EditButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import { Rubro } from "../../types/Rubro";
 import { RubroService } from "../../services/RubroService";
+import ModalRubro from "../ModalRubro/ModalRubro";
 
 
 const ABMRubro = () => {
 
   //Variable que va a contener los datos recibidos por la API
-  const [unidadRubros, setRubros] = useState<Rubro[]>([]);
+  const [rubros, setRubros] = useState<Rubro[]>([]);
 
   //Variable que muestra el componente Loader hasta que se reciban los datos de la API
   const [isLoading, setIsLoading] = useState(true);
@@ -42,31 +40,31 @@ const ABMRubro = () => {
 
 
   //Se inicializa una unidad medida vacia cuando vayamos a crear uno nuevo, para evitar "undefined"
-  const initializeNewUnidadMedida = (): UnidadMedida => {
+  const initializeNewRubro = (): Rubro => {
     return {
         id: 0,
-        nombreUnidadMedida:'',
-        abreviaturaUnidadMedida: '',
-        fechaAltaUnidadMedida: '',
-        fechaBajaUnidadMedida:'',
-        fechaModificacionUnidadMedida: '',
+        nombreRubro:'',
+        fechaAltaRubro: '',
+        fechaBajaRubro:'',
+        fechaModificacionRubro: '',
+        
     };
   };
 
 
 //Producto seleccionado que se va a pasar como prop al Modal
-const [unidadMedida, setUnidadMedida] = useState<UnidadMedida>(initializeNewUnidadMedida);
+const [rubro, setRubro] = useState<Rubro>(initializeNewRubro);
 
 //Manejo de Modal
 const [showModal, setShowModal] = useState(false);
 const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
-const [nombreUnidadMedida, setNombreUnidadMedida] = useState("");
+const [nombreRubro, setNombreRubro] = useState("");
 
 //Logica de Modal
-const handleClick = (newNombreUnidadMedida: string, uniMe: UnidadMedida, modal: ModalType) => {
-  setNombreUnidadMedida(newNombreUnidadMedida);
+const handleClick = (newNombreRubro: string, rub: Rubro, modal: ModalType) => {
+  setNombreRubro(newNombreRubro);
   setModalType(modal);
-  setUnidadMedida(uniMe);
+  setRubro(rub);
   setShowModal(true);
 
 };
@@ -81,9 +79,9 @@ return (
   <div className="m-3">
 
       {/* Botón para que cuando el usuario haga click llame a la función que declaramos */}
-          <Button onClick={() => handleClick("Nueva unidad medida",
-              initializeNewUnidadMedida(), ModalType.CREATE)}>
-              Nuevo Producto
+          <Button onClick={() => handleClick("Nuevo rubro",
+              initializeNewRubro(), ModalType.CREATE)}>
+              Nuevo rubro
           </Button>
 
   {isLoading ? <Loader/>: (
@@ -93,8 +91,6 @@ return (
               <tr>
                   <th> ID </th>
                   <th> NOMBRE </th>
-                  <th> ABREVIATURA </th>
-                  <th> CATEGORIA </th>
                   <th> FECHA ALTA </th>
                   <th> FECHA BAJA </th>
                   <th> FECHA MODIFICACION </th>
@@ -103,17 +99,17 @@ return (
           </thead>
 
           <tbody>
-          {unidadMedidas.map((unidadMedida) => (
-            <tr key={unidadMedida.id}>
-              <td>{unidadMedida.id}</td>
-              <td>{unidadMedida.nombreUnidadMedida}</td>
-              <td>{unidadMedida.abreviaturaUnidadMedida}</td>
-              <td>{unidadMedida.fechaAltaUnidadMedida}</td>
-              <td>{unidadMedida.fechaBajaUnidadMedida}</td>
-              <td>{unidadMedida.fechaModificacionUnidadMedida}</td>
+          {rubros.map((rubro) => (
+            <tr key={rubro.id}>
+              <td>{rubro.id}</td>
+              <td>{rubro.nombreRubro}</td>
+              <td>{rubro.fechaAltaRubro}</td>
+              <td>{rubro.fechaBajaRubro}</td>
+              <td>{rubro.fechaAltaRubro}</td>
+              
 
-              <td> <EditButton onClick={() => handleClick("Editar unidad medida", unidadMedida, ModalType.UPDATE)}/> </td>
-              <td> <DeleteButton onClick={() => handleClick("Borrar unidad medida", unidadMedida, ModalType.DELETE)} /> </td>
+              <td> <EditButton onClick={() => handleClick("Editar rubro", rubro, ModalType.UPDATE)}/> </td>
+              <td> <DeleteButton onClick={() => handleClick("Borrar rubro", rubro, ModalType.DELETE)} /> </td>
 
               </tr>
               ))}
@@ -124,12 +120,12 @@ return (
   )}
 
   {showModal && (
-      <ModalUnidadMedida
+      <ModalRubro
       show = {showModal}
       onHide={() => setShowModal(false)}
-      nombreUnidadMedida= {nombreUnidadMedida}
+      nombreRubro= {nombreRubro}
       modalType={modalType}
-      uniMe={unidadMedida}
+      rub={rubro}
       refreshData={setRefreshData}
       />
       

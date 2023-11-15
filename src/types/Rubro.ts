@@ -6,7 +6,7 @@ export interface Rubro {
     fechaModificacionRubro?: string;
     
     //Relaciones
-    rubroPadre: Rubro | null;
-    rubroHijoList: Rubro[] | null; 
+    rubroPadre?: Rubro;
+    rubroHijoList?: Rubro[]; 
   }
 

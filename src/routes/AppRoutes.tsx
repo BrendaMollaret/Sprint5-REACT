@@ -8,6 +8,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import ShowProfilePage from "../pages/showProfilePage/showProfilePage";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
+import ABMRubroPage from "../pages/ABMRubroPage/ABMRubroPage";
 
 
 const PrivateRoute = React.lazy(() => import ('./PrivateRoute'));
@@ -34,6 +35,8 @@ const AppRoutes = () => {
           <Route path="/showProfile" element={<ShowProfilePage/>}/>
 
           <Route path="/registrarse" element={<RegisterPage />} />
+
+          <Route path="/ABMRubro" element={<ABMRubroPage />} />
 
 
         </Routes>
