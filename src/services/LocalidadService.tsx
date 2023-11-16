@@ -6,7 +6,7 @@ export const LocalidadService = {
     getAllLocalidades: async (): Promise<Localidad[]> => {
         const response = await fetch(`${BASE_URL}/api/v1/localidad/paged`);
         const data = await response.json();
-        return data;
+        return data.content;
     },
 
     getLocalidad: async (id: number): Promise<Localidad> => {

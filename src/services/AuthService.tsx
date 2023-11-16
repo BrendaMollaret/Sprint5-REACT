@@ -37,7 +37,7 @@ export const AuthService = {
       return token;
 
     } catch (error) {
-      console.error('Error al iniciar sesión:');
+      console.error('Error al iniciar sesión desde el service');
       throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función
     }
   },
@@ -74,7 +74,7 @@ export const AuthService = {
       return token;
 
     } catch (error) {
-      console.error('Error al registrar');
+      console.error('Error al registrar desde el service');
       throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función
     }
   }

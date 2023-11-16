@@ -1,52 +1,81 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Form, useNavigate } from 'react-router-dom';
-import { AuthService } from '../../services/AuthService';
-import { toast } from 'react-toastify';
-import { Container, Button } from 'react-bootstrap';
-
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Form, Modal } from "react-bootstrap";
+import { AuthService } from "../../services/AuthService";
+import { toast } from "react-toastify";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const FormRegister: React.FC = () => {
-
   const navigate = useNavigate();
+  const [show, setShow] = useState(true);
+
+  {
+    /*
+  //almacenar las localidades que nos trae el servicio
+  const [localidades, setLocalidades] = useState<Localidad[]>([]);
+
   
+   //buscar las localidades
+  useEffect(() => {
+    const fetchLocalidades = async () => {
+      try {
+        const localidadesData = await LocalidadService.getAllLocalidades();
+        setLocalidades(localidadesData);
+      } catch (error) {
+        console.error("Error al obtener las localidades", error);
+      }
+    };
+
+    fetchLocalidades();
+  }, []); */
+  }
 
   // YUP - Esquema de validación
-  const validationSchema = Yup.object({
-
-    username: Yup.string().required('Este campo es obligatorio'),
-    password: Yup.string().required('Este campo es obligatorio'),    
-    
-    nombre: Yup.string().required("Este campo es obligatorio"),
-    apellido: Yup.string().required("Este campo es obligatorio"),
-    telefono: Yup.string().required("Este campo es obligatorio"),
-    mail: Yup.string().email("Formato de correo electrónico inválido").required("Este campo es obligatorio"),
-    
-    calle: Yup.string().required("Este campo es obligatorio"),
-    nroCalle: Yup.number().required("Este campo es obligatorio").integer("Debe ser un número entero").positive("Debe ser mayor a 0"),
-    pisoDpto: Yup.number().integer("Debe ser un número entero").positive("Debe ser mayor o igual a 0"),
-    nroDpto: Yup.number().integer("Debe ser un número entero").positive("Debe ser mayor o igual a 0"),
-    idLocalidad: Yup.number().integer("Debe ser un número entero").positive("Debe ser mayor o igual a 0"),
-  
+  const validationSchema = yup.object().shape({
+    username: yup.string().required("Este campo es obligatorio"),
+    password: yup.string().required("Este campo es obligatorio"),
+    nombre: yup.string().required("El nombre es obligatorio"),
+    apellido: yup.string().required("El apellido es obligatorio"),
+    telefono: yup.string().required("El telefono es obligatorio"),
+    mail: yup
+      .string()
+      .email("Formato de correo electrónico inválido")
+      .required("Este campo es obligatorio"),
+    calle: yup.string().required("La calle es obligatorio"),
+    nroCalle: yup
+      .number()
+      .required("El nro de calle es obligatorio")
+      .integer("Debe ser un número entero")
+      .positive("Debe ser mayor a 0"),
+    pisoDpto: yup
+      .number()
+      .integer("Debe ser un número entero")
+      .positive("Debe ser mayor o igual a 0"),
+    nroDpto: yup
+      .number()
+      .integer("Debe ser un número entero")
+      .positive("Debe ser mayor o igual a 0"),
+    idLocalidad: yup
+      .number()
+      .integer("Debe ser un número entero")
+      .positive("Debe ser mayor o igual a 0"),
   });
 
   const formik = useFormik({
-
     initialValues: {
       username: "",
       password: "",
-
       nombre: "",
       apellido: "",
-      telefono: 0,
+      telefono: "",
       mail: "",
-      
       calle: "",
       nroCalle: 0,
       pisoDpto: 0,
       nroDpto: 0,
-
-      idLocalidad: 0,
+      //idLocalidad: 0,
     },
 
     validationSchema: validationSchema,
@@ -55,251 +84,239 @@ const FormRegister: React.FC = () => {
       try {
         const token = await AuthService.register(values);
         console.log("Registro realizado. Token:", token);
-        navigate('/');
-        toast.success('Registro realizado');
+        toast.success("Registro realizado");
+        navigate("/");
       } catch (error) {
         console.error("Error al registrarse");
-       
       }
     },
   });
-  
+
+  const handleHide = () => {
+    setShow(false);
+  };
+
   return (
-    <>
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <Form onSubmit={formik.handleSubmit} className="w-50 p-4 border">
-          {/* ----- username ----- */}
-          <div className="mb-3 mt-1">
-            <label htmlFor="username" className="form-label">
-              Usuario
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
+    <Modal
+      show={show}
+      onHide={handleHide}
+      centered
+      backdrop="static"
+      className="modal-xl"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Registrarse</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={formik.handleSubmit}>
+          {/* Form.Group para cada campo para dar de alta o modificar un producto */}
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
               name="username"
+              type="text"
+              value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(
+                formik.errors.username && formik.touched.username
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.username}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.username && formik.errors.username ? (
-              <div className="text-danger"> {formik.errors.username} </div>
-            ) : null}
-          </div>
-
-          {/* ----- password ----- */}
-          <div className="mb-3 mt-1">
-            <label htmlFor="password" className="form-label">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
               name="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="password"
               value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(
+                formik.errors.password && formik.touched.password
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.password}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.password && formik.errors.password ? (
-              <div className="text-danger"> {formik.errors.password} </div>
-            ) : null}
-          </div>
-
-           {/* ----- nombre ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="nombre" className="form-label">
-              Nombre
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nombre"
+          <Form.Group controlId="nombre">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
               name="nombre"
+              type="text"
+              value={formik.values.nombre}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(formik.errors.nombre && formik.touched.nombre)}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.nombre}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.nombre && formik.errors.nombre ? (
-              <div className="text-danger"> {formik.errors.nombre} </div>
-            ) : null}
-          </div>
-
-           {/* ----- Apellido ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="apellido" className="form-label">
-            Apellido
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="apellido"
+          <Form.Group controlId="apellido">
+            <Form.Label>Apellido</Form.Label>
+            <Form.Control
               name="apellido"
+              type="text"
+              value={formik.values.apellido}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(
+                formik.errors.apellido && formik.touched.apellido
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.apellido}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.apellido && formik.errors.apellido ? (
-              <div className="text-danger"> {formik.errors.apellido} </div>
-            ) : null}
-          </div>
-
-           {/* ----- Telefono ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="telefono" className="form-label">
-              Telefono
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="telefono"
+          <Form.Group controlId="telefono">
+            <Form.Label>Telefono</Form.Label>
+            <Form.Control
               name="telefono"
+              type="text"
+              value={formik.values.telefono}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(
+                formik.errors.telefono && formik.touched.telefono
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.telefono}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.telefono && formik.errors.telefono ? (
-              <div className="text-danger"> {formik.errors.telefono} </div>
-            ) : null}
-          </div>
-
-           {/* ----- Mail ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="mail" className="form-label">
-              Mail
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="mail"
+          <Form.Group controlId="mail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
               name="mail"
+              type="text"
+              value={formik.values.mail}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(formik.errors.mail && formik.touched.mail)}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.mail}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.mail && formik.errors.mail ? (
-              <div className="text-danger"> {formik.errors.mail} </div>
-            ) : null}
-          </div>
-
-           {/* ----- Calle ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="calle" className="form-label">
-              Calle
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="calle"
+          <Form.Group controlId="calle">
+            <Form.Label>Calle</Form.Label>
+            <Form.Control
               name="calle"
+              type="text"
+              value={formik.values.calle}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              isInvalid={Boolean(formik.errors.calle && formik.touched.calle)}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.calle}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.calle && formik.errors.calle ? (
-              <div className="text-danger"> {formik.errors.calle} </div>
-            ) : null}
-          </div>
-
-           {/* ----- NroCalle ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="nroCalle" className="form-label">
-             NroCalle
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nroCalle"
+          <Form.Group controlId="nroCalle">
+            <Form.Label>Nro calle</Form.Label>
+            <Form.Control
               name="nroCalle"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="text"
               value={formik.values.nroCalle}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(
+                formik.errors.nroCalle && formik.touched.nroCalle
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.nroCalle}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.nroCalle && formik.errors.nroCalle ? (
-              <div className="text-danger"> {formik.errors.nroCalle} </div>
-            ) : null}
-          </div>
-
-           {/* ----- Piso dpto ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="pisoDpto" className="form-label">
-              Piso dpto
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="pisoDpto"
+          <Form.Group controlId="pisoDpto">
+            <Form.Label>Piso dpto</Form.Label>
+            <Form.Control
               name="pisoDpto"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="text"
               value={formik.values.pisoDpto}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(
+                formik.errors.pisoDpto && formik.touched.pisoDpto
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.pisoDpto}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-            {formik.touched.pisoDpto && formik.errors.pisoDpto ? (
-              <div className="text-danger"> {formik.errors.pisoDpto} </div>
-            ) : null}
-          </div>
-
-           {/* ----- nroDpto ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="nroDpto" className="form-label">
-              nro Dpto
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nroDpto"
+          <Form.Group controlId="nroDpto">
+            <Form.Label>Nro dpto</Form.Label>
+            <Form.Control
               name="nroDpto"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nroDpto}
-            />
-
-            {formik.touched.nroDpto && formik.errors.nroDpto ? (
-              <div className="text-danger"> {formik.errors.nroDpto} </div>
-            ) : null}
-          </div>
-
-           {/* ----- idLocalidad ----- */}
-           <div className="mb-3 mt-1">
-            <label htmlFor="idLocalidad" className="form-label">
-              id Localidad
-            </label>
-            <input
               type="text"
-              className="form-control"
-              id="idLocalidad"
-              name="idLocalidad"
+              value={formik.values.nroDpto}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.idLocalidad}
+              isInvalid={Boolean(
+                formik.errors.nroDpto && formik.touched.nroDpto
+              )}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.nroDpto}
+            </Form.Control.Feedback>
+          </Form.Group>
+          {/* <Form.Group controlId="idLocalidad">
+            <Form.Label>Localidad</Form.Label>
 
-            {formik.touched.idLocalidad && formik.errors.idLocalidad ? (
-              <div className="text-danger"> {formik.errors.idLocalidad} </div>
-            ) : null}
-          </div>
+            <Dropdown
+              onSelect={(selectedId: string | null) => {
+                if (selectedId !== null) {
+                  formik.setFieldValue("idLocalidad", parseInt(selectedId));
+                }
+              }}
+            >
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                {formik.values.idLocalidad === 0
+                  ? "Seleccione una localidad"
+                  : `Localidad ${formik.values.idLocalidad}`}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {localidades.map((localidad) => (
+                  <Dropdown.Item
+                    key={localidad.id}
+                    eventKey={localidad.id.toString()}
+                  >
+                    {localidad.nombreLocalidad}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
 
-          <div className="text-end">
-            <Button className="px-5" variant="primary" type="submit">
-              Enviar
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.idLocalidad}
+            </Form.Control.Feedback>
+          </Form.Group> */}
+
+          <Modal.Footer className="mt-4">
+            <Button variant="secondary" onClick={handleHide}>
+              Cancelar
             </Button>
-          </div>
+            <Button variant="primary" type="submit" disabled={!formik.isValid}>
+              Guardar
+            </Button>
+          </Modal.Footer>
         </Form>
-      </Container>
-    </>
+      </Modal.Body>
+    </Modal>
   );
 };
 
-export default FormRegister
+export default FormRegister;

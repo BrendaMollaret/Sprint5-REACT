@@ -23,8 +23,8 @@ const AppRoutes = () => {
 
           
           <Route path="/login" element={<LoginPage />} />
-          
-              
+
+          <Route path="/registrarse" element={<RegisterPage />} />
         
           <Route path="/adminPage" element={<PrivateRoute element= {<AdminPage/>}/>} />
 
@@ -34,7 +34,7 @@ const AppRoutes = () => {
 
           <Route path="/showProfile" element={<ShowProfilePage/>}/>
 
-          <Route path="/registrarse" element={<RegisterPage />} />
+          
 
           <Route path="/ABMRubro" element={<ABMRubroPage />} />
 

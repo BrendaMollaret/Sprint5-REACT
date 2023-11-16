@@ -4,12 +4,12 @@ export interface registerRequest {
 
     nombre: string,
     apellido: string,
-    telefono: number,
+    telefono: string,
     mail: string,
 
     calle: string,
     nroCalle: number,
     pisoDpto: number,
     nroDpto: number,
-    idLocalidad: number,
+   
 }
